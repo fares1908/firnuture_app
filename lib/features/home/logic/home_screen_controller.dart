@@ -42,7 +42,8 @@ class HomePageControllerImpl extends HomePageController {
 
   @override
   getData() async {
-    updateStatus(StatusRequest.loading);
+    statusRequest = StatusRequest.loading;
+    update();
 
     try {
       var response = await homeData.getCategory();
@@ -55,6 +56,7 @@ class HomePageControllerImpl extends HomePageController {
           clearCategories();
           List listCat = response["data"]["categories"];
           categories.addAll(listCat.map((e) => CategoryModel.fromJson(e)));
+          update();
         }
       } else if (statusRequest == StatusRequest.offlineFailure) {
         update(); // Display the offline Lottie animation
@@ -84,6 +86,7 @@ class HomePageControllerImpl extends HomePageController {
 
           List listProd = response["data"]["products"];
           products.addAll(listProd.map((e) => ProductModel.fromJson(e)));
+          update();
         }
       } else if (statusRequest == StatusRequest.offlineFailure) {
         // Display the offline Lottie animation
@@ -140,7 +143,9 @@ class HomePageControllerImpl extends HomePageController {
 
           List listProd = response["data"]["sliders"];
           sliders.addAll(listProd.map((e) => SliderModel.fromJson(e)));
+          update();
         }
+
       } else if (statusRequest == StatusRequest.offlineFailure) {
         // Display the offline Lottie animation
         update();
