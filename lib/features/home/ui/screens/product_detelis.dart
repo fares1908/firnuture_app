@@ -19,21 +19,7 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  int quantity = 1;
 
-  void incrementQuantity() {
-    setState(() {
-      quantity++;
-    });
-  }
-
-  void decrementQuantity() {
-    if (quantity > 1) {
-      setState(() {
-        quantity--;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,19 +113,7 @@ class _ProductPageState extends State<ProductPage> {
                               color: Colors.black54,
                             ),
                           ),
-                    Row(
-                      children: <Widget>[
-                        IconButton(
-                          icon: const Icon(Icons.remove),
-                          onPressed: decrementQuantity,
-                        ),
-                        Text('$quantity'),
-                        IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: incrementQuantity,
-                        ),
-                      ],
-                    ),
+
                   ],
                 ),
                 const SizedBox(height: 16),
