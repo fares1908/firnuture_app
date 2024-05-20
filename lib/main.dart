@@ -17,7 +17,7 @@ void main() async {
   print(myServices.sharedPreferences.getString('token'));
   print(myServices.sharedPreferences.getString('id'));
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
