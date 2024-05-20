@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:furniture_shopping/features/cart/cart_screen.dart';
+
 import 'package:furniture_shopping/features/home/ui/screens/home_screen.dart';
 import 'package:furniture_shopping/features/notifcation/notifcaion.dart';
 import 'package:furniture_shopping/features/user/user_screen.dart';
 import 'package:get/get.dart';
+
+import '../../cart/ui/view/cart_view.dart';
 
 abstract class HomeScreenBodyController extends GetxController {
   changePage(int index);
@@ -14,7 +16,7 @@ class HomeScreenBodyControllerImpl extends HomeScreenBodyController {
   int currentPage = 0;
   List<Widget> listPage = [
     const HomeScreen(),
-    const CartScreen(),
+     CartView(),
     const NotficationScreen(),
     const UserScreen()
     //

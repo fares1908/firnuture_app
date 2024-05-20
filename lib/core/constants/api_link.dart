@@ -12,5 +12,11 @@ class AppLink {
       '$server/api/products/getProducts';
   static const String getSliders =
       '$server/api/sliders/getAllSliders';
+  static const String getCart =
+      '$server/cart/getCart';
+  static const String addCart =
+      '$server/cart/addToCart';
+  static const String removeCart =
+      '$server/removeFromCart/';
 
 }
