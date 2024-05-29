@@ -47,7 +47,7 @@ class CartProductCard extends StatelessWidget {
                 style: TextStyles.font14GrayRegular,
                 ),
                 const SizedBox(height: 10),
-                Text('\$${product.productPrice}',
+                Text('\$${product.productSalePrice}',
                   style: TextStyles.font24BlackBold.copyWith(fontSize: 18),
                 ),
                 const SizedBox(height: 10),
@@ -75,7 +75,7 @@ class CartProductCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 5),
                       Text(
-                        '${cartItem.quantity.toString().padLeft(2, '0')}',
+                        cartItem.quantity.toString().padLeft(2, '0'),
                         style: const TextStyle(fontSize: 16),
                       ),
                       const SizedBox (width: 5),
