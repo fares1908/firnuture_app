@@ -83,4 +83,25 @@ class CartController extends GetxController {
 
     update();
   }
+  Future<void> deleteProductFromCart(String productId) async {
+    statusRequest = StatusRequest.loading;
+    update();
+
+    try {
+      await cartService.deleteProductFromCart(
+        productId,
+        AppLink.server,
+        myServices.sharedPreferences.getString('token')!,
+      );
+      await fetchCart();
+      Get.snackbar('Success', 'Product deleted from cart');
+      statusRequest = StatusRequest.success;
+    } catch (e) {
+      print('Error deleting product from cart: $e');
+      statusRequest = StatusRequest.failure;
+      Get.snackbar('Error', 'Failed to delete product from cart');
+    }
+
+    update();
+  }
 }

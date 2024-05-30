@@ -1,4 +1,3 @@
-
 import 'package:furniture_shopping/core/class/status_request.dart';
 import 'package:furniture_shopping/core/constants/routes/AppRoute/routersName.dart';
 import 'package:furniture_shopping/core/functions/handlingData.dart';
@@ -56,6 +55,7 @@ class HomePageControllerImpl extends HomePageController {
           clearCategories();
           List listCat = response["data"]["categories"];
           categories.addAll(listCat.map((e) => CategoryModel.fromJson(e)));
+          print("Categories loaded: $categories"); // Debugging line
           update();
         }
       } else if (statusRequest == StatusRequest.offlineFailure) {
@@ -64,6 +64,7 @@ class HomePageControllerImpl extends HomePageController {
         updateStatus(StatusRequest.failure); // Handle other failure cases
       }
     } catch (e) {
+      print("Error loading categories: $e"); // Debugging line
       updateStatus(StatusRequest.failure); // Handle exceptions
     }
   }
@@ -118,15 +119,12 @@ class HomePageControllerImpl extends HomePageController {
 
   void goToCategoryProducts(CategoryModel selectedCategory) {
     List<ProductModel> categoryProducts =
-        getProductsByCategory(selectedCategory);
+    getProductsByCategory(selectedCategory);
 
     Get.toNamed(AppRouter.catScreen, arguments: [categoryProducts]);
   }
 
-
-
-
-  getSlider()async {
+  getSlider() async {
     statusRequest = StatusRequest.loading;
     update();
 
@@ -138,14 +136,13 @@ class HomePageControllerImpl extends HomePageController {
 
       if (statusRequest == StatusRequest.success) {
         if (response["status"] == "success") {
-          // Clear existing products before adding new ones
+          // Clear existing sliders before adding new ones
           sliders.clear();
 
           List listProd = response["data"]["sliders"];
           sliders.addAll(listProd.map((e) => SliderModel.fromJson(e)));
           update();
         }
-
       } else if (statusRequest == StatusRequest.offlineFailure) {
         // Display the offline Lottie animation
         update();
@@ -161,6 +158,7 @@ class HomePageControllerImpl extends HomePageController {
 
     update(); // This updates the UI
   }
+
   @override
   void onInit() {
     super.onInit();

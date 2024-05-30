@@ -12,45 +12,50 @@ class CustomCategoryList extends GetView<HomePageControllerImpl> {
 
   @override
   Widget build(BuildContext context) {
+    print("Building CustomCategoryList with ${controller.categories.length} categories"); // Debugging line
     return SizedBox(
       height: 85.h,
       child: ListView.separated(
         separatorBuilder: (context, index) => horizontalSpace(8),
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => GestureDetector(
-          onTap: () {
-            controller.goToCategoryProducts(controller.categories[index]);
-          },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                height: 48.h,
-                width: 48.w,
-                decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(.4),
-                  borderRadius: BorderRadius.circular(12),
+        itemBuilder: (context, index) {
+          print("Rendering category: ${controller.categories[index].categoryName}"); // Debugging line
+          return GestureDetector(
+            onTap: () {
+              controller.goToCategoryProducts(controller.categories[index]);
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  height: 48.h,
+                  width: 48.w,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(.4),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl:
+                    '${AppLink.server}/uploads/categories/${controller.categories[index].categoryImage}',
+                    progressIndicatorBuilder: (context, url, downloadProgress) =>
+                        CircularProgressIndicator(
+                            value: downloadProgress.progress),
+                    errorWidget: (context, url, error) =>
+                    const Icon(Icons.error),
+                  ),
                 ),
-                child: CachedNetworkImage(
-                  imageUrl:
-                      '${AppLink.server}/uploads/categories/${controller.categories[index].categoryImage}',
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      CircularProgressIndicator(
-                          value: downloadProgress.progress),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                verticalSpace(5),
+                Text(
+                  '${controller.categories[index].categoryName}',
+                  style: TextStyles.font14GrayRegular,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
-              ),
-              verticalSpace(5),
-              Text(
-                '${controller.categories[index].categoryName}',
-                style: TextStyles.font14GrayRegular,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-            ],
-          ),
-        ),
+              ],
+            ),
+          );
+        },
         itemCount: controller.categories.length,
       ),
     );

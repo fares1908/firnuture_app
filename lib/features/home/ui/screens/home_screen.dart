@@ -67,66 +67,68 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: GetBuilder<HomePageControllerImpl>(
-          builder: (controller) => HandlingDataView(
-                statusRequest: controller.statusRequest,
-                widget: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-                  child: ListView(
-                    children: [
-                      const Divider(
-                        thickness: 2,
-                      ),
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          autoPlay: true,
-                          autoPlayAnimationDuration: Duration(milliseconds: 100),
-                          autoPlayCurve: Curves.easeIn,
-                         enableInfiniteScroll: true,
-                          aspectRatio: 2.0,
-                          enlargeCenterPage: true,
+        builder: (controller) => HandlingDataView(
+          statusRequest: controller.statusRequest,
+          widget: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+            child: ListView(
+              children: [
+                const Divider(
+                  thickness: 2,
+                ),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    autoPlayAnimationDuration: Duration(milliseconds: 100),
+                    autoPlayCurve: Curves.easeIn,
+                    enableInfiniteScroll: true,
+                    aspectRatio: 2.0,
+                    enlargeCenterPage: true,
+                  ),
+                  items: controller.sliders.map((slider) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                      decoration: BoxDecoration(
+                        // Use CachedNetworkImageProvider inside DecorationImage
+                        image: DecorationImage(
+                          image: CachedNetworkImageProvider(
+                            '${AppLink.server}/uploads/sliders/${slider.sliderImage}',
+                          ),
+                          fit: BoxFit.cover,
                         ),
-                        items: controller.sliders.map((slider) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.symmetric(horizontal: 5.0),
-                            decoration: BoxDecoration(
-                              // Use CachedNetworkImageProvider inside DecorationImage
-                              image: DecorationImage(
-                                image: CachedNetworkImageProvider(
-                                  '${AppLink.server}/uploads/sliders/${slider.sliderImage}',
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            child: CachedNetworkImage(
-                              imageUrl: '${AppLink.server}/uploads/sliders/${slider.sliderImage}',
-                              progressIndicatorBuilder: (context, url, downloadProgress) {
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    value: downloadProgress.progress,
-                                  ),
-                                );
-                              },
-                              errorWidget: (context, url, error) => const Icon(Icons.error),
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                        '${AppLink.server}/uploads/sliders/${slider.sliderImage}',
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: downloadProgress.progress,
                             ),
                           );
-
-                        }).toList(),
+                        },
+                        errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                       ),
-                      const Divider(
-                        thickness: 2,
-                      ),
-                      const CustomCategoryList(),
-                      const Divider(
-                        thickness: 2,
-                      ),
-                      Text('Special offer', style: TextStyles.font24BlackBold),
-                      const CustomGridView(),
-                    ],
-                  ),
+                    );
+                  }).toList(),
                 ),
-              )),
+                const Divider(
+                  thickness: 2,
+                ),
+                const CustomCategoryList(),
+                const Divider(
+                  thickness: 2,
+                ),
+                Text('Special offer', style: TextStyles.font24BlackBold),
+                const CustomGridView(),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

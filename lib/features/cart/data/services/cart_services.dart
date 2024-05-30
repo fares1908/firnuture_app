@@ -42,7 +42,7 @@ class CartService {
         }),
       );
 
-      if (response.statusCode != 200) {
+      if (response.statusCode != 200 ) {
         throw Exception('Failed to add product to cart');
       }
     } catch (e) {
@@ -69,4 +69,27 @@ class CartService {
       rethrow;
     }
   }
+  Future<void> deleteProductFromCart(String productId, String baseUrl, String token) async {
+    final url = Uri.parse('$baseUrl/cart/delete/$productId');
+    try {
+      final response = await http.delete(
+        url,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      // Log the response status and body for debugging
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to delete product from cart: ${response.body}');
+      }
+    } catch (e) {
+      print('Error in deleteProductFromCart: $e');
+      rethrow;
+    }
+  }
+
 }

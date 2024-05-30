@@ -79,6 +79,7 @@ class CartProductCard extends StatelessWidget {
                         style: const TextStyle(fontSize: 16),
                       ),
                       const SizedBox (width: 5),
+
                       Container(
                         width: 30,
                         height: 30,
@@ -102,7 +103,7 @@ class CartProductCard extends StatelessWidget {
     IconButton(
         icon: const Icon(Icons.delete),
         onPressed: () {
-          controller.removeFromCart(cartItem.product!.id!);
+          controller.deleteProductFromCart(cartItem.product!.id!);
         },
       ),
         ],
