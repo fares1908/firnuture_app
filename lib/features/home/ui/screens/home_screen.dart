@@ -5,6 +5,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furniture_shopping/core/class/handling_data_view.dart';
+import 'package:furniture_shopping/core/constants/routes/AppRoute/routersName.dart';
 import 'package:furniture_shopping/core/theming/text_styles.dart';
 import 'package:furniture_shopping/features/home/logic/home_screen_controller.dart';
 import 'package:furniture_shopping/features/home/ui/widgets/custom_category_list.dart';
@@ -60,7 +61,9 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.grey,
                   size: 30,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppRouter.cart);
+                },
               ),
             ),
           ),

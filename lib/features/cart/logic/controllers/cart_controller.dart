@@ -83,6 +83,7 @@ class CartController extends GetxController {
 
     update();
   }
+
   Future<void> deleteProductFromCart(String productId) async {
     statusRequest = StatusRequest.loading;
     update();
@@ -104,4 +105,8 @@ class CartController extends GetxController {
 
     update();
   }
+
 }
+
+
+

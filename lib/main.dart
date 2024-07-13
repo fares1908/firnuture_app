@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:furniture_shopping/features/favourit/logic/favourite_controller.dart';
 import 'package:get/get.dart';
 import 'core/class/initial_binding.dart';
 import 'core/class/my_services.dart';
@@ -11,6 +12,7 @@ void main() async {
 
   // Put MyServices into the GetX system
   Get.put(MyServices());
+
 
   // Now you can find it
   MyServices myServices = Get.find();

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../features/auth/login/ui/screens/login_screen.dart';
 import '../../../../features/auth/sign_up/ui/screens/siginup_screen.dart';
+import '../../../../features/cart/ui/view/cart_view.dart';
 import '../../../class/my_middel_ware.dart';
 import 'routersName.dart';
 
@@ -19,7 +20,7 @@ List<GetPage<dynamic>>? routes = [
   // GetPage(name: AppRouter.productDetails, page:() => const ProductDetails()),
   // GetPage(name: AppRouter.popularShoes, page: () => PopularShoes()),
   // GetPage(name: AppRouter.favorite, page: () => const FavouriteScreen()),
-  // GetPage(name: AppRouter.cart, page: () => const CartScreen()),
+  GetPage(name: AppRouter.cart, page: () => CartView()),
   // GetPage(name: AppRouter.checkOut, page: () => CheckOut()),
   // GetPage(name: AppRouter.addressView, page: () => const AddressView()),
   // GetPage(name: AppRouter.addressAdd, page: () =>AddressAdd()),

@@ -52,7 +52,7 @@ class HomePageControllerImpl extends HomePageController {
 
       if (statusRequest == StatusRequest.success) {
         if (response["status"] == "success") {
-          clearCategories();
+        categories.clear();
           List listCat = response["data"]["categories"];
           categories.addAll(listCat.map((e) => CategoryModel.fromJson(e)));
           print("Categories loaded: $categories"); // Debugging line

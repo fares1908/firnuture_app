@@ -7,6 +7,7 @@ import 'package:furniture_shopping/features/user/user_screen.dart';
 import 'package:get/get.dart';
 
 import '../../cart/ui/view/cart_view.dart';
+import '../../favourit/ui/view/favourite_screen.dart';
 
 abstract class HomeScreenBodyController extends GetxController {
   changePage(int index);
@@ -16,7 +17,7 @@ class HomeScreenBodyControllerImpl extends HomeScreenBodyController {
   int currentPage = 0;
   List<Widget> listPage = [
     const HomeScreen(),
-     CartView(),
+    FavoritesPage(),
     const NotficationScreen(),
     const UserScreen()
     //
