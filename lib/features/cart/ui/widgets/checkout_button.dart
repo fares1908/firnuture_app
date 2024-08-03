@@ -1,18 +1,29 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:furniture_shopping/features/cart/logic/controllers/cart_controller.dart';
 
 class CheckoutButton extends StatelessWidget {
+
+  const CheckoutButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+
       onPressed: () {
-        // Checkout functionality
+
       },
-      child: const Text('Check out'),
       style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+        backgroundColor: Colors.black,
+        minimumSize: const Size(double.infinity, 65),
+        textStyle: const TextStyle(fontSize: 18),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
       ),
+      child: const Text('Check out'),
+
     );
   }
 }

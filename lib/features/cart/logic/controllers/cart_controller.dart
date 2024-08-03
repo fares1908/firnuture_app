@@ -106,7 +106,21 @@ class CartController extends GetxController {
     update();
   }
 
+  Future<void> applyPromoCode(String promoCode) async {
+    statusRequest = StatusRequest.loading;
+    update();
+    try {
+      await cartService.applyPromoCode(AppLink.server,
+          myServices.sharedPreferences.getString('token')!, promoCode);
+      Get.snackbar('Success', 'promo code add success');
+      statusRequest = StatusRequest.success;
+      fetchCart();
+    } catch (e) {
+      print('Error is : $e');
+      statusRequest = StatusRequest.failure;
+      Get.snackbar('Error', 'Invalid or expired promo code');
+    }
+
+    update();
+  }
 }
-
-
-
