@@ -48,7 +48,7 @@ class CustomGridView extends GetView<HomePageControllerImpl> {
                       child: CachedNetworkImage(
                         fit: BoxFit.cover,
                         imageUrl:
-                        '${AppLink.server}/uploads/products/${product.productImages?.first}',
+                        '${AppLink.kBaseUrl}/uploads/products/${product.productImages?.first}',
                         placeholder: (context, url) => const Center(
                           child: CircularProgressIndicator(
                             color: Colors.grey,

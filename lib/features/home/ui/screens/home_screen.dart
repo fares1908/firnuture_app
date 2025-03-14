@@ -96,14 +96,14 @@ class HomeScreen extends StatelessWidget {
                         // Use CachedNetworkImageProvider inside DecorationImage
                         image: DecorationImage(
                           image: CachedNetworkImageProvider(
-                            '${AppLink.server}/uploads/sliders/${slider.sliderImage}',
+                            '${AppLink.kBaseUrl}/uploads/sliders/${slider.sliderImage}',
                           ),
                           fit: BoxFit.cover,
                         ),
                       ),
                       child: CachedNetworkImage(
                         imageUrl:
-                        '${AppLink.server}/uploads/sliders/${slider.sliderImage}',
+                        '${AppLink.kBaseUrl}/uploads/sliders/${slider.sliderImage}',
                         progressIndicatorBuilder:
                             (context, url, downloadProgress) {
                           return Center(

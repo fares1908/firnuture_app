@@ -59,7 +59,35 @@ class CartService {
       rethrow;
     }
   }
+  Future<void> addMultipleToCart(String baseUrl, List<String> productIds, String token) async {
+    final url = Uri.parse('$baseUrl/cart/addMultipleProducts');
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          'productIds': productIds,
+        }),
+      );
 
+      if (kDebugMode) {
+        print('Response status: ${response.statusCode}');
+        print('Response body: ${response.body}');
+      }
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to add multiple products to cart');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error in addMultipleToCart: $e');
+      }
+      rethrow;
+    }
+  }
   Future<void> removeFromCart(
       String productId, String baseUrl, String token) async {
     final url = Uri.parse('$baseUrl/cart/removeFromCart/$productId');
@@ -112,36 +140,36 @@ class CartService {
     }
   }
 
-  Future<void> applyPromoCode(
-      String baseUrl, String token, String promoCode) async {
+  Future<void> applyPromoCode(String baseUrl, String token, String promoCode) async {
     final url = Uri.parse('$baseUrl/cart/applyPromoCode');
     try {
       final response = await http.post(
         url,
-        body: {
-          'promoCode': promoCode,
-        },
+        body: jsonEncode({'promoCode': promoCode}),
         headers: {
+          'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
         },
       );
 
-      // Log the response status and body for debugging
+      // ✅ طباعة الاستجابة للتصحيح
       if (kDebugMode) {
         print('Response status: ${response.statusCode}');
-      }
-      if (kDebugMode) {
         print('Response body: ${response.body}');
       }
 
+      // ✅ استخراج رسالة الخطأ فقط بدون `Exception`
       if (response.statusCode != 200) {
-        throw Exception('Failed to add promoCode: ${response.body}');
+        final errorResponse = jsonDecode(response.body);
+        throw errorResponse['message'] ?? 'Failed to apply promo code';
       }
     } catch (e) {
       if (kDebugMode) {
         print('Error in add promoCode: $e');
       }
-      rethrow;
+      rethrow; // إعادة الخطأ بنفس الشكل
     }
   }
+
+
 }

@@ -1,22 +1,22 @@
 class AppLink {
-  static const String server = 'http://192.168.1.30:3000';
+  static const String kBaseUrl = 'http://192.168.1.12:3000';
   static const String login =
-      '$server/api/users/login';
+      '$kBaseUrl/api/users/login';
   static const String register =
-      '$server/api/users/register';
+      '$kBaseUrl/api/users/register';
   static const String getUsers =
-      '$server/api/users';
+      '$kBaseUrl/api/users';
   static const String getCategory =
-      '$server/api/categories/getCategories';
+      '$kBaseUrl/api/categories/getCategories';
   static const String getProducts =
-      '$server/api/products/getProducts';
+      '$kBaseUrl/api/products/getProducts';
   static const String getSliders =
-      '$server/api/sliders/getAllSliders';
+      '$kBaseUrl/api/sliders/getAllSliders';
   static const String getCart =
-      '$server/cart/getCart';
+      '$kBaseUrl/cart/getCart';
   static const String addCart =
-      '$server/cart/addToCart';
+      '$kBaseUrl/cart/addToCart';
   static const String removeCart =
-      '$server/removeFromCart/';
+      '$kBaseUrl/removeFromCart/';
 
 }

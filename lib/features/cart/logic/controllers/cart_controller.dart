@@ -25,7 +25,7 @@ class CartController extends GetxController {
 
     try {
       var fetchedCart = await cartService.getCart(
-        AppLink.server,
+        AppLink.kBaseUrl,
         myServices.sharedPreferences.getString('token')!,
       );
       cart.value = fetchedCart;
@@ -45,7 +45,7 @@ class CartController extends GetxController {
 
     try {
       await cartService.addToCart(
-        AppLink.server,
+        AppLink.kBaseUrl,
         productId,
         quantity,
         myServices.sharedPreferences.getString('token')!,
@@ -61,6 +61,27 @@ class CartController extends GetxController {
 
     update();
   }
+  Future<void> addMultipleToCart(List<String> productIds) async {
+    statusRequest = StatusRequest.loading;
+    update();
+
+    try {
+      await cartService.addMultipleToCart(
+        AppLink.kBaseUrl,
+        productIds,
+        myServices.sharedPreferences.getString('token')!,
+      );
+      await fetchCart();
+      Get.snackbar('Success', 'All products added to cart');
+      statusRequest = StatusRequest.success;
+    } catch (e) {
+      print('Error adding multiple products to cart: $e');
+      statusRequest = StatusRequest.failure;
+      Get.snackbar('Error', 'Failed to add multiple products to cart');
+    }
+
+    update();
+  }
 
   Future<void> removeFromCart(String productId) async {
     statusRequest = StatusRequest.loading;
@@ -69,7 +90,7 @@ class CartController extends GetxController {
     try {
       await cartService.removeFromCart(
         productId,
-        AppLink.server,
+        AppLink.kBaseUrl,
         myServices.sharedPreferences.getString('token')!,
       );
       await fetchCart();
@@ -91,7 +112,7 @@ class CartController extends GetxController {
     try {
       await cartService.deleteProductFromCart(
         productId,
-        AppLink.server,
+        AppLink.kBaseUrl,
         myServices.sharedPreferences.getString('token')!,
       );
       await fetchCart();
@@ -110,7 +131,7 @@ class CartController extends GetxController {
     statusRequest = StatusRequest.loading;
     update();
     try {
-      await cartService.applyPromoCode(AppLink.server,
+      await cartService.applyPromoCode(AppLink.kBaseUrl,
           myServices.sharedPreferences.getString('token')!, promoCode);
       Get.snackbar('Success', 'promo code add success');
       statusRequest = StatusRequest.success;
@@ -118,7 +139,7 @@ class CartController extends GetxController {
     } catch (e) {
       print('Error is : $e');
       statusRequest = StatusRequest.failure;
-      Get.snackbar('Error', 'Invalid or expired promo code');
+      Get.snackbar('Error','${e}');
     }
 
     update();

@@ -37,7 +37,7 @@ class CustomCategoryList extends GetView<HomePageControllerImpl> {
                   ),
                   child: CachedNetworkImage(
                     imageUrl:
-                    '${AppLink.server}/uploads/categories/${controller.categories[index].categoryImage}',
+                    '${AppLink.kBaseUrl}/uploads/categories/${controller.categories[index].categoryImage}',
                     progressIndicatorBuilder: (context, url, downloadProgress) =>
                         CircularProgressIndicator(
                             value: downloadProgress.progress),

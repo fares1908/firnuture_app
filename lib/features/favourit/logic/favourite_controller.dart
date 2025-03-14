@@ -30,7 +30,7 @@ class FavouriteController extends GetxController {
 
     try {
       List<Favorite> fetchedFavorites = await favouriteService.getFavorites(
-        AppLink.server,
+        AppLink.kBaseUrl,
         token,
       );
 
@@ -55,7 +55,7 @@ class FavouriteController extends GetxController {
 
     try {
       await favouriteService.addToFavorites(
-        AppLink.server,
+        AppLink.kBaseUrl,
         productId,
         token,
       );
@@ -83,13 +83,14 @@ class FavouriteController extends GetxController {
     try {
       await favouriteService.removeFromFavorites(
         productId,
-        AppLink.server,
+        AppLink.kBaseUrl,
         token,
       );
 
       await fetchFavorites();
       Get.snackbar('Success', 'Product removed from favorites');
       statusRequest.value = StatusRequest.success;
+      update();
     } catch (e) {
       print('Error removing product from favorites: $e');
       statusRequest.value = StatusRequest.failure;

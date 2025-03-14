@@ -148,7 +148,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                                 ),
                                 child:CachedNetworkImage(
                                   fit: BoxFit.cover,
-                                  imageUrl: '${AppLink.server}/uploads/products/${categoryProducts[index].productImages?.first ?? 'default_image.png'}',
+                                  imageUrl: '${AppLink.kBaseUrl}/uploads/products/${categoryProducts[index].productImages?.first ?? 'default_image.png'}',
                                   placeholder: (context, url) => const Center(
                                     child: CircularProgressIndicator(
                                       color: Colors.grey,

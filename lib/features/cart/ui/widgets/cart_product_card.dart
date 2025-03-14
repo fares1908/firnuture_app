@@ -25,7 +25,7 @@ class CartProductCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             child: CachedNetworkImage(
               imageUrl:
-                  '${AppLink.server}/uploads/products/${product.productImages!.first}',
+                  '${AppLink.kBaseUrl}/uploads/products/${product.productImages!.first}',
               height: 120,
               width: 120,
               fit: BoxFit.cover,
