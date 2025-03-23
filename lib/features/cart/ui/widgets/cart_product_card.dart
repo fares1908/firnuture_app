@@ -16,9 +16,7 @@ class CartProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = cartItem.product!;
     return Card(
-      shape: ContinuousRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
-      ),
+      elevation: 0,
       child: Row(
         children: [
           ClipRRect(
@@ -26,8 +24,8 @@ class CartProductCard extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl:
                   '${AppLink.kBaseUrl}/uploads/products/${product.productImages!.first}',
-              height: 120,
-              width: 120,
+              height: 100,
+              width: 100,
               fit: BoxFit.cover,
             ),
           ),
@@ -45,16 +43,25 @@ class CartProductCard extends StatelessWidget {
                       style: TextStyles.font14GrayRegular,
                     ),
                     const SizedBox(width: 10),
-                    IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        controller.deleteProductFromCart(cartItem.product!.id!);
-                      },
+                    Container(
+                      // margin: EdgeInsets.all(value),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.black, width: 2),
+                      ),
+                      child: InkWell(
+                          onTap: () {
+                            controller.deleteProductFromCart(cartItem.product!.id!);
+                          },
+                          child: const Icon(Icons.close,
+                              size: 15, color: Colors.black)),
                     ),
+
                   ],
                 ),
+                const SizedBox(height: 10),
                 Text(
-                  '\$${product.productSalePrice}',
+                  '\$ ${product.productSalePrice}',
                   style: TextStyles.font24BlackBold.copyWith(fontSize: 18),
                 ),
                 const SizedBox(height: 10),
@@ -65,7 +72,11 @@ class CartProductCard extends StatelessWidget {
                       Container(
                         width: 30,
                         height: 30,
-                        color: Colors.grey.withOpacity(.2),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(.2),
+                          borderRadius: BorderRadius.circular(6)
+                        ),
+                       
                         child: IconButton(
                           icon: const Icon(
                             Icons.remove,
@@ -89,7 +100,11 @@ class CartProductCard extends StatelessWidget {
                       Container(
                         width: 30,
                         height: 30,
-                        color: Colors.grey.withOpacity(.2),
+                        decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(.2),
+                            borderRadius: BorderRadius.circular(6)
+                        ),
+
                         child: IconButton(
                           icon: const Icon(
                             Icons.add,

@@ -3,7 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 
 import 'package:furniture_shopping/features/home/ui/screens/home_screen.dart';
 import 'package:furniture_shopping/features/notifcation/notifcaion.dart';
-import 'package:furniture_shopping/features/user/user_screen.dart';
+import 'package:furniture_shopping/features/home/ui/screens/user_screen.dart';
 import 'package:get/get.dart';
 
 import '../../cart/ui/view/cart_view.dart';

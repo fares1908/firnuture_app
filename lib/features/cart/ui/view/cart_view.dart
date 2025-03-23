@@ -33,7 +33,7 @@ class CartView extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(12),
         child: Column(
           children: [
             Expanded(child: CartProductsList(cartController: cartController)),

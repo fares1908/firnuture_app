@@ -5,6 +5,7 @@ class Cart {
   String? userId;
   List<CartItem> products;
   double totalPrice;
+  String ? appliedPromoCode;
 
   Cart({
     this.id,

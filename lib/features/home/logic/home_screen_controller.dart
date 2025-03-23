@@ -7,6 +7,8 @@ import 'package:furniture_shopping/features/home/data/models/product_model.dart'
 import 'package:furniture_shopping/features/home/data/models/slider_model.dart';
 import 'package:get/get.dart';
 
+import '../../../core/class/my_services.dart';
+
 abstract class HomePageController extends GetxController {
   getData();
   getProduct();
@@ -21,7 +23,7 @@ class HomePageControllerImpl extends HomePageController {
   List<ProductModel> getProductsOnSale() {
     return products.where((product) => product.productSalePrice != 0).toList();
   }
-
+  MyServices myServices = Get.find();
   void clearCategories() {
     categories.clear();
   }
@@ -158,6 +160,11 @@ class HomePageControllerImpl extends HomePageController {
 
     update(); // This updates the UI
   }
+   logout() async {
+    await myServices.sharedPreferences.clear(); // Clear all user data
+    Get.offAllNamed(AppRouter.loginScreen); // Navigate to login screen
+  }
+
 
   @override
   void onInit() {

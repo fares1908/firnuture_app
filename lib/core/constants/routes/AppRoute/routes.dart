@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_shopping/features/home/ui/screens/category_screen.dart';
 import 'package:furniture_shopping/features/home/ui/screens/home_body.dart';
+import 'package:furniture_shopping/features/home/ui/screens/order_screen.dart';
 import 'package:get/get.dart';
 
 import '../../../../features/auth/login/ui/screens/login_screen.dart';
@@ -17,6 +18,7 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: AppRouter.loginScreen, page: () => const LoginScreen()),
   GetPage(name: AppRouter.homeScreen, page:() =>const HomeScreenBody()),
   GetPage(name: AppRouter.catScreen, page:() =>const CategoryProductsScreen()),
+  GetPage(name: AppRouter.orders, page: () =>  OrdersScreen()),
   // GetPage(name: AppRouter.productDetails, page:() => const ProductDetails()),
   // GetPage(name: AppRouter.popularShoes, page: () => PopularShoes()),
   // GetPage(name: AppRouter.favorite, page: () => const FavouriteScreen()),

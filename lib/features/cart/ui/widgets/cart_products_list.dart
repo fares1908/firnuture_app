@@ -16,7 +16,11 @@ class CartProductsList extends StatelessWidget {
         if (controller.cart.value.products.isEmpty) {
           return const Center(child: Text('No products in cart'));
         }
-        return ListView.builder(
+        return ListView.separated(
+          separatorBuilder: (context, index) => Divider(
+            thickness: 1,
+            color: Colors.grey.withOpacity(.2),
+          ),
           itemCount: controller.cart.value.products.length,
           itemBuilder: (context, index) {
             final cartItem = controller.cart.value.products[index];

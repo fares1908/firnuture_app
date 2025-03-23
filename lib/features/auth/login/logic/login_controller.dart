@@ -51,6 +51,9 @@ class LoginControllerImpl extends LoginController {
             myServices.sharedPreferences
                 .setString('token', response['data']['token']);
             print(response['data']['token']);
+            myServices.sharedPreferences
+                .setString('avatar', response['data']['user']['avatar']);
+
 
             Get.offNamed(AppRouter.homeScreen); // Registration success logic
             print("=============================== $statusRequest");
