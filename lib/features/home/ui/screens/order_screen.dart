@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:furniture_shopping/core/constants/routes/AppRoute/routersName.dart';
+import 'package:get/get.dart';
+import '../../../../core/class/status_request.dart';
+import '../../data/models/order_model.dart';
+import '../../logic/order_controller.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({super.key});
@@ -9,11 +14,17 @@ class OrdersScreen extends StatefulWidget {
 
 class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderStateMixin {
   late TabController tabController;
+  final OrderController orderController = Get.put(OrderController(), permanent: true); // ✅ اجعل الـ Controller دائمًا في الذاكرة
 
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this);
+
+    // ✅ لو الطلبات فاضية فقط، اعمل جلب للبيانات
+    if (orderController.orders.isEmpty) {
+      orderController.getOrders();
+    }
   }
 
   @override
@@ -26,7 +37,7 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My order', style: TextStyle(color: Colors.black)),
+        title: const Text('My Orders', style: TextStyle(color: Colors.black)),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
@@ -45,10 +56,10 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
       ),
       body: TabBarView(
         controller: tabController,
-        children: [
-          OrdersList(status: 'Delivered'),
-          OrdersList(status: 'Processing'),
-          OrdersList(status: 'Canceled'),
+        children: const [
+          OrdersList(status: 'delivered'),
+          OrdersList(status: 'processing'),
+          OrdersList(status: 'canceled'),
         ],
       ),
     );
@@ -62,16 +73,35 @@ class OrdersList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: 3, // Replace with real data length
-      itemBuilder: (context, index) {
-        return OrderCard(
-          orderNumber: '238562312',
-          date: '20/03/2020',
-          quantity: 3,
-          total: 150,
-          status: status,
+    return GetBuilder<OrderController>(
+      builder: (controller) {
+        if (controller.isLoading.isTrue) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        List<OrderModel> filteredOrders = controller.orders
+            .where((order) => order.status.toLowerCase() == status.toLowerCase())
+            .toList();
+
+        if (filteredOrders.isEmpty) {
+          return const Center(child: Text("No orders found"));
+        }
+
+        return ListView.builder(
+          padding: const EdgeInsets.all(16),
+          itemCount: filteredOrders.length,
+          itemBuilder: (context, index) {
+            var order = filteredOrders[index];
+
+            return OrderCard(
+              orderNumber: order.id.substring(0, 8),
+              date: order.getFormattedDate(),
+              quantity: order.products.fold(0, (sum, item) => sum + item.quantity),
+              total: order.totalAmount,
+              status: order.status,
+              orderId: order.id, // ✅ تمرير رقم الطلب عشان نروح للـ Order Details
+            );
+          },
         );
       },
     );
@@ -84,6 +114,7 @@ class OrderCard extends StatelessWidget {
   final int quantity;
   final double total;
   final String status;
+  final String orderId;
 
   const OrderCard({
     super.key,
@@ -92,6 +123,7 @@ class OrderCard extends StatelessWidget {
     required this.quantity,
     required this.total,
     required this.status,
+    required this.orderId,
   });
 
   @override
@@ -109,7 +141,7 @@ class OrderCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Order No$orderNumber", style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text("Order No $orderNumber", style: const TextStyle(fontWeight: FontWeight.bold)),
               Text(date, style: const TextStyle(color: Colors.grey)),
             ],
           ),
@@ -134,16 +166,17 @@ class OrderCard extends StatelessWidget {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                 ),
                 onPressed: () {
-                  // Go to order details
+                  // ✅ التنقل إلى تفاصيل الطلب مع تمرير `orderId`
+                  Get.toNamed(AppRouter.orderDetails, arguments: {"orderId": orderId});
                 },
                 child: const Text("Detail"),
               ),
               Text(
-                status,
+                status.capitalizeFirst!,
                 style: TextStyle(
-                  color: status == 'Delivered'
+                  color: status == 'delivered'
                       ? Colors.green
-                      : status == 'Processing'
+                      : status == 'processing'
                       ? Colors.orange
                       : Colors.red,
                   fontWeight: FontWeight.bold,

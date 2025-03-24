@@ -13,4 +13,5 @@ class AppRouter {
   static const String setting = '/setting';
   static const String addAddressCart = '/addAddressCart';
   static const String orders = '/orders';
+  static const String orderDetails = '/orderDetails';
 }

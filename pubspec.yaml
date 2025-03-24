@@ -65,6 +65,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   dio: ^5.8.0+1
   pretty_dio_logger: ^1.4.0
+  intl: ^0.20.2
 
 
 
